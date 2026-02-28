@@ -4,7 +4,8 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-import { auth } from "@/lib/firebase";
+import { doc, setDoc } from "firebase/firestore";
+import { auth, db } from "@/lib/firebase";
 
 export default function SignupPage() {
     const router = useRouter();
@@ -45,6 +46,12 @@ export default function SignupPage() {
                 displayName: fullName,
             });
 
+            // Save user to Firestore
+            await setDoc(doc(db, "users", userCredential.user.uid), {
+                name: fullName,
+                email: email,
+            });
+
             router.push("/dashboard");
         } catch (err: unknown) {
             if (err instanceof Error) {
@@ -57,6 +64,8 @@ export default function SignupPage() {
                     setError("Password is too weak. Use at least 8 characters.");
                 } else if (message.includes("operation-not-allowed") || message.includes("OPERATION_NOT_ALLOWED")) {
                     setError("Email/Password sign-in is not enabled. Please enable it in Firebase Console → Authentication → Sign-in method.");
+                } else if (message.includes("Missing or insufficient permissions") || message.includes("permission-denied")) {
+                    setError("Firestore permission denied. Go to Firebase Console → Firestore Database → Rules, and allow write access for authenticated users.");
                 } else if (message.includes("network-request-failed")) {
                     setError("Network error. Please check your connection.");
                 } else {

@@ -2,7 +2,9 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import { auth } from "@/lib/firebase";
+import { signOut } from "firebase/auth";
 import {
     LayoutDashboard,
     Users,
@@ -32,6 +34,16 @@ interface SidebarProps {
 
 export function Sidebar({ isMobileOpen, setMobileOpen }: SidebarProps) {
     const pathname = usePathname();
+    const router = useRouter();
+
+    const handleLogout = async () => {
+        try {
+            await signOut(auth);
+            router.push("/login");
+        } catch (error) {
+            console.error("Error signing out:", error);
+        }
+    };
 
     return (
         <>
@@ -95,6 +107,13 @@ export function Sidebar({ isMobileOpen, setMobileOpen }: SidebarProps) {
 
                 {/* Bottom actions */}
                 <div className="p-4 border-t border-slate-100 dark:border-slate-800">
+                    <button
+                        onClick={handleLogout}
+                        className="w-full mb-1 group flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-red-600 hover:bg-red-50 dark:text-red-400 dark:hover:bg-red-500/10 transition-all"
+                    >
+                        <LogOut className="h-5 w-5 shrink-0 text-red-500 dark:text-red-400" />
+                        Sign Out
+                    </button>
                     <Link
                         href="/settings"
                         className="group flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-50 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800/50 dark:hover:text-white transition-all"
@@ -102,13 +121,6 @@ export function Sidebar({ isMobileOpen, setMobileOpen }: SidebarProps) {
                         <Settings className="h-5 w-5 shrink-0 text-slate-400 group-hover:text-slate-600 dark:text-slate-500 dark:group-hover:text-slate-400" />
                         Settings
                     </Link>
-                    <button
-                        onClick={() => console.log('logout')}
-                        className="w-full mt-1 group flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-red-600 hover:bg-red-50 dark:text-red-400 dark:hover:bg-red-500/10 transition-all"
-                    >
-                        <LogOut className="h-5 w-5 shrink-0 text-red-500 dark:text-red-400" />
-                        Sign Out
-                    </button>
                 </div>
             </div>
         </>
