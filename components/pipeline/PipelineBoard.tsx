@@ -9,9 +9,9 @@ import {
     PointerSensor,
     useSensor,
     useSensors,
-    DragStart,
-    DragEnd,
-    DragOver,
+    DragStartEvent,
+    DragEndEvent,
+    DragOverEvent,
     defaultDropAnimationSideEffects,
 } from "@dnd-kit/core";
 import {
@@ -49,13 +49,13 @@ export function PipelineBoard({ deals, onStageChange, onDealClick, onAddDeal }: 
         return acc;
     }, {} as Record<DealStage, DealDoc[]>);
 
-    function handleDragStart(event: DragStart) {
+    function handleDragStart(event: DragStartEvent) {
         if (event.active.data.current?.type === "Deal") {
             setActiveDeal(event.active.data.current.deal);
         }
     }
 
-    function handleDragOver(event: DragOver) {
+    function handleDragOver(event: DragOverEvent) {
         const { active, over } = event;
         if (!over) return;
 
@@ -72,26 +72,26 @@ export function PipelineBoard({ deals, onStageChange, onDealClick, onAddDeal }: 
 
         // Dropping over another deal
         if (isActiveADeal && isOverADeal) {
-            const activeDealObj = active.data.current.deal as DealDoc;
-            const overDealObj = over.data.current.deal as DealDoc;
+            const activeDealObj = active.data.current?.deal as DealDoc | undefined;
+            const overDealObj = over.data.current?.deal as DealDoc | undefined;
 
-            if (activeDealObj.stage !== overDealObj.stage) {
+            if (activeDealObj && overDealObj && activeDealObj.stage !== overDealObj.stage) {
                 onStageChange(activeDealObj.id, overDealObj.stage);
             }
         }
 
         // Dropping over a column
         if (isActiveADeal && isOverAColumn) {
-            const activeDealObj = active.data.current.deal as DealDoc;
-            const overColumnStage = over.data.current.stage as DealStage;
+            const activeDealObj = active.data.current?.deal as DealDoc | undefined;
+            const overColumnStage = over.data.current?.stage as DealStage | undefined;
 
-            if (activeDealObj.stage !== overColumnStage) {
+            if (activeDealObj && overColumnStage && activeDealObj.stage !== overColumnStage) {
                 onStageChange(activeDealObj.id, overColumnStage);
             }
         }
     }
 
-    function handleDragEnd(event: DragEnd) {
+    function handleDragEnd(event: DragEndEvent) {
         setActiveDeal(null);
     }
 
