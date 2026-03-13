@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { doc, setDoc } from "firebase/firestore";
-import { db } from "@/lib/firebase";
+import { db, auth } from "@/lib/firebase";
 
 export default function CreateCustomerPage() {
     const router = useRouter();
@@ -62,6 +62,7 @@ export default function CreateCustomerPage() {
             // The prompt requested this exact collection path and fields.
             const customerDocData = {
                 id: customerId, // Override local random ID with real Firebase Auth ID
+                uId: auth.currentUser?.uid || null, // Current login uid
                 name: formData.name,
                 email: formData.email,
                 phone: formData.phone,

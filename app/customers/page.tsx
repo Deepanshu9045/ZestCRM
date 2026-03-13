@@ -2,8 +2,9 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { collection, getDocs, query, orderBy } from "firebase/firestore";
-import { db } from "@/lib/firebase";
+import { collection, getDocs, query, where } from "firebase/firestore";
+import { db, auth } from "@/lib/firebase";
+import { onAuthStateChanged } from "firebase/auth";
 import {
     Users,
     Plus,
@@ -20,37 +21,38 @@ export default function CustomersPage() {
     const [searchQuery, setSearchQuery] = useState("");
 
     useEffect(() => {
-        const fetchCustomers = async () => {
-            try {
-                // Fetch all customers from Firestore
-                const customersRef = collection(db, "customers");
+        const unsubscribe = onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                try {
+                    setLoading(true);
+                    const customersRef = collection(db, "customers");
+                    const q = query(customersRef, where("uId", "==", user.uid));
+                    const querySnapshot = await getDocs(q);
 
-                // You can add orderBy("createdAt", "desc") if you have an index, 
-                // but getDocs alone works without requiring new composite indexes instantly.
-                const querySnapshot = await getDocs(customersRef);
+                    const customersList = querySnapshot.docs.map(doc => ({
+                        ...doc.data(),
+                        id: doc.id
+                    }));
 
-                const customersList = querySnapshot.docs.map(doc => ({
-                    ...doc.data(),
-                    // fallback ID if not specifically saved in data
-                    id: doc.id
-                }));
+                    customersList.sort((a: any, b: any) => {
+                        const dateA = new Date(a.createdAt || 0).getTime();
+                        const dateB = new Date(b.createdAt || 0).getTime();
+                        return dateB - dateA; // Newest first
+                    });
 
-                // Sort client side for now to avoid Firestore index requirement issues
-                customersList.sort((a: any, b: any) => {
-                    const dateA = new Date(a.createdAt || 0).getTime();
-                    const dateB = new Date(b.createdAt || 0).getTime();
-                    return dateB - dateA; // Newest first
-                });
-
-                setCustomers(customersList);
-            } catch (error) {
-                console.error("Error fetching customers:", error);
-            } finally {
+                    setCustomers(customersList);
+                } catch (error) {
+                    console.error("Error fetching customers:", error);
+                } finally {
+                    setLoading(false);
+                }
+            } else {
+                setCustomers([]);
                 setLoading(false);
             }
-        };
+        });
 
-        fetchCustomers();
+        return () => unsubscribe();
     }, []);
 
     const filteredCustomers = customers.filter(customer =>

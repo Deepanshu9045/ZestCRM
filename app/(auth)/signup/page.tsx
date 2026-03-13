@@ -6,6 +6,7 @@ import Link from "next/link";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
 import { auth, db } from "@/lib/firebase";
+import { signIn } from "next-auth/react";
 
 export default function SignupPage() {
     const router = useRouter();
@@ -305,6 +306,7 @@ export default function SignupPage() {
             {/* Google Sign Up */}
             <button
                 type="button"
+                onClick={() => signIn("google")}
                 className="flex w-full items-center justify-center gap-3 rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm font-medium text-slate-300 transition-all duration-200 hover:border-white/20 hover:bg-white/10"
             >
                 <svg className="h-5 w-5" viewBox="0 0 24 24">
