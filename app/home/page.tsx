@@ -170,7 +170,7 @@ export default function HomePage() {
                     <h2 className="text-4xl md:text-6xl font-extrabold tracking-tight text-gray-900 dark:text-white leading-[1.1]">
                         Zest CRM made <br />
                         <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-violet-600">
-                            effortless & beautiful.
+                            Powering Smarter Customer Relationships.
                         </span>
                     </h2>
                 </div>

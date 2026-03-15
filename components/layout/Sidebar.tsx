@@ -39,7 +39,7 @@ export function Sidebar({ isMobileOpen, setMobileOpen }: SidebarProps) {
     const handleLogout = async () => {
         try {
             await signOut(auth);
-            router.push("/login");
+            router.push("/home");
         } catch (error) {
             console.error("Error signing out:", error);
         }
