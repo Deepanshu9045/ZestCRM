@@ -8,8 +8,7 @@ export default function AboutUs() {
                     About Us
                 </h1>
                 <p className="text-xl text-gray-600 dark:text-gray-400 mb-12 leading-relaxed">
-                    At Zest Invoice, we're on a mission to simplify financial management for freelancers and small businesses worldwide. We believe that getting paid shouldn't be a hassle.
-                </p>
+                    ZestCRM is a modern and powerful Customer Relationship Management (CRM) platform designed to help businesses manage their customers, sales, and operations more efficiently. Our goal is to simplify customer management by providing a smart, secure, and user-friendly system that helps organizations build stronger relationships with their clients.                </p>
 
                 <div className="grid md:grid-cols-2 gap-12 mb-20">
                     <div>

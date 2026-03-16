@@ -63,7 +63,7 @@ export default function HomePage() {
                 <AboutUs />
             </section>
 
-            <section id="cost-refund">
+            <section id="cost-and-refund">
                 <CostAndRefund />
             </section>
 

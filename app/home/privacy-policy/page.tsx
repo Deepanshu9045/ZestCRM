@@ -8,7 +8,7 @@ export default function PrivacyPolicy() {
                 <div className="prose prose-lg dark:prose-invert">
                     <p>Last updated: February 10, 2026</p>
                     <p>
-                        Your privacy is important to us. It is Zest Invoice's policy to respect your privacy regarding any information we may collect from you across our website, http://zestinvoice.com, and other sites we own and operate.
+                        Your privacy is important to us. It is Zest Invoice's policy to respect your privacy regarding any information we may collect from you across our website, and other sites we own and operate.
                     </p>
                     <h3>1. Information We Collect</h3>
                     <p>
