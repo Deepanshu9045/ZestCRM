@@ -37,7 +37,7 @@ const socialLinks = [
 
 export default function Footer() {
     return (
-        <footer className="bg-white dark:bg-black border-t border-gray-100 dark:border-white/10 pt-16 pb-8">
+        <footer className="border-t border-slate-200 dark:border-slate-800 pt-16 pb-8">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex flex-col lg:flex-row gap-12 mb-12">
                     {/* Brand Column */}

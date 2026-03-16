@@ -112,10 +112,7 @@ const features: Feature[] = [
 
 export default function HeadPage() {
     return (
-        <div className="min-h-screen bg-white dark:bg-black text-gray-900 dark:text-gray-100 font-sans selection:bg-blue-100">
-
-
-
+        <div className="text-gray-900 dark:text-gray-100 font-sans selection:bg-blue-100">
             {/* Hero Content */}
             <main className="flex flex-col items-center justify-center pt-10 pb-20 px-4 text-center">
                 <div className="space-y-6 max-w-4xl mx-auto animate-in fade-in slide-in-from-bottom-8 duration-1000">
@@ -144,16 +141,21 @@ export default function HeadPage() {
                                 tiltClass = "lg:hover:-rotate-1"; // Tilt Left only on lg
                             }
 
+                            const offsetClass =
+                                feature.title === "Reports & Analytics" || feature.title === "Cloud & Mobile"
+                                    ? "md:translate-x40 lg:translate-x-50"
+                                    : "";
+
                             return (
-                                <div key={index} className={`group relative transition-all duration-500 hover:-translate-y-2 ${tiltClass}`}>
+                                <div key={index} className={`group relative transition-all duration-500 hover:-translate-y-2 ${tiltClass} ${offsetClass}`}>
                                     {/* Glow Effect with Pulse */}
                                     <div className={`absolute -inset-1 bg-gradient-to-r ${feature.gradientFrom} ${feature.gradientTo} rounded-[2.5rem] blur-xl opacity-20 group-hover:opacity-60 transition duration-1000 group-hover:duration-200 animate-tilt`}></div>
 
                                     {/* Card Content */}
-                                    <div className="relative h-full bg-white dark:bg-[#0A0A0A] border border-gray-200 dark:border-white/10 p-2 rounded-[2rem] overflow-hidden">
+                                    <div className="relative h-full bg-slate-50 dark:bg-slate-950 border border-gray-200 dark:border-white/10 p-2 rounded-[2rem] overflow-hidden">
                                         <div className={`absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-white to-transparent -translate-x-full group-hover:animate-shimmer delay-100`}></div>
 
-                                        <div className={`h-full bg-gray-50/50 dark:bg-[#111] p-8 rounded-[1.8rem] transition-colors relative overflow-hidden group-hover:bg-opacity-50`}>
+                                        <div className={`h-full bg-slate-100/70 dark:bg-slate-900/60 p-8 rounded-[1.8rem] transition-colors relative overflow-hidden group-hover:bg-opacity-50`}>
                                             {/* Background Pattern */}
                                             <div className="absolute inset-0 opacity-[0.03] dark:opacity-[0.05] pointer-events-none" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, gray 1px, transparent 0)', backgroundSize: '24px 24px' }}></div>
 

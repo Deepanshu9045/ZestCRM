@@ -11,10 +11,10 @@ import Footer from "@/components/layout/footer";
 
 export default function HomePage() {
     return (
-        <div className="min-h-screen bg-white dark:bg-black text-gray-900 dark:text-gray-100 font-sans selection:bg-blue-100">
+        <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-gray-900 dark:text-gray-100 font-sans selection:bg-blue-100">
             <CursorTrace />
             {/* Navbar */}
-            <nav className="w-full h-20 flex items-center justify-between px-4 md:px-8 py-6 border-b border-gray-100 dark:border-gray-800/60 backdrop-blur-md sticky top-0 z-50 bg-white/80 dark:bg-black/80">
+            <nav className="w-full h-20 flex items-center justify-between px-4 md:px-8 py-6 border-b border-slate-200 dark:border-slate-800 backdrop-blur-md sticky top-0 z-50 bg-white/80 dark:bg-slate-900/80">
 
                 {/* Left: Logo + Brand */}
                 <Link href="/">

@@ -81,8 +81,8 @@ export default function SignupPage() {
     return (
         <>
             <div className="mb-6">
-                <h2 className="text-2xl font-semibold text-white">Create account</h2>
-                <p className="mt-1 text-sm text-slate-400">
+                <h2 className="text-2xl font-semibold text-slate-900 dark:text-white">Create account</h2>
+                <p className="mt-1 text-sm text-slate-600 dark:text-slate-400">
                     Get started with ZestCRM today
                 </p>
             </div>
@@ -98,7 +98,7 @@ export default function SignupPage() {
                 <div>
                     <label
                         htmlFor="signup-name"
-                        className="mb-1.5 block text-sm font-medium text-slate-300"
+                        className="mb-1.5 block text-sm font-medium text-slate-700 dark:text-slate-300"
                     >
                         Full Name
                     </label>
@@ -109,7 +109,7 @@ export default function SignupPage() {
                         value={fullName}
                         onChange={(e) => setFullName(e.target.value)}
                         placeholder="John Doe"
-                        className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder-slate-500 outline-none transition-all duration-200 focus:border-purple-500/50 focus:bg-white/10 focus:ring-2 focus:ring-purple-500/20"
+                        className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 placeholder-slate-400 outline-none transition-all duration-200 focus:border-purple-500/50 focus:bg-white focus:ring-2 focus:ring-purple-500/20 dark:border-white/10 dark:bg-white/5 dark:text-white dark:placeholder-slate-500 dark:focus:bg-white/10"
                     />
                 </div>
 
@@ -117,7 +117,7 @@ export default function SignupPage() {
                 <div>
                     <label
                         htmlFor="signup-email"
-                        className="mb-1.5 block text-sm font-medium text-slate-300"
+                        className="mb-1.5 block text-sm font-medium text-slate-700 dark:text-slate-300"
                     >
                         Email Address
                     </label>
@@ -128,7 +128,7 @@ export default function SignupPage() {
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         placeholder="you@company.com"
-                        className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder-slate-500 outline-none transition-all duration-200 focus:border-purple-500/50 focus:bg-white/10 focus:ring-2 focus:ring-purple-500/20"
+                        className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 placeholder-slate-400 outline-none transition-all duration-200 focus:border-purple-500/50 focus:bg-white focus:ring-2 focus:ring-purple-500/20 dark:border-white/10 dark:bg-white/5 dark:text-white dark:placeholder-slate-500 dark:focus:bg-white/10"
                     />
                 </div>
 
@@ -136,7 +136,7 @@ export default function SignupPage() {
                 <div>
                     <label
                         htmlFor="signup-password"
-                        className="mb-1.5 block text-sm font-medium text-slate-300"
+                        className="mb-1.5 block text-sm font-medium text-slate-700 dark:text-slate-300"
                     >
                         Password
                     </label>
@@ -148,12 +148,12 @@ export default function SignupPage() {
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                             placeholder="Min. 8 characters"
-                            className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 pr-12 text-sm text-white placeholder-slate-500 outline-none transition-all duration-200 focus:border-purple-500/50 focus:bg-white/10 focus:ring-2 focus:ring-purple-500/20"
+                            className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 pr-12 text-sm text-slate-900 placeholder-slate-400 outline-none transition-all duration-200 focus:border-purple-500/50 focus:bg-white focus:ring-2 focus:ring-purple-500/20 dark:border-white/10 dark:bg-white/5 dark:text-white dark:placeholder-slate-500 dark:focus:bg-white/10"
                         />
                         <button
                             type="button"
                             onClick={() => setShowPassword(!showPassword)}
-                            className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 transition-colors hover:text-slate-300"
+                            className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 transition-colors hover:text-slate-700 dark:hover:text-slate-300"
                         >
                             {showPassword ? (
                                 <svg
@@ -206,7 +206,7 @@ export default function SignupPage() {
                                             : password.length >= 8
                                                 ? "bg-amber-500"
                                                 : "bg-red-500"
-                                        : "bg-white/10"
+                                        : "bg-slate-200 dark:bg-white/10"
                                         }`}
                                 />
                             ))}
@@ -218,7 +218,7 @@ export default function SignupPage() {
                 <div>
                     <label
                         htmlFor="signup-confirm-password"
-                        className="mb-1.5 block text-sm font-medium text-slate-300"
+                        className="mb-1.5 block text-sm font-medium text-slate-700 dark:text-slate-300"
                     >
                         Confirm Password
                     </label>
@@ -229,9 +229,9 @@ export default function SignupPage() {
                         value={confirmPassword}
                         onChange={(e) => setConfirmPassword(e.target.value)}
                         placeholder="••••••••"
-                        className={`w-full rounded-xl border bg-white/5 px-4 py-3 text-sm text-white placeholder-slate-500 outline-none transition-all duration-200 focus:bg-white/10 focus:ring-2 ${confirmPassword && confirmPassword !== password
+                        className={`w-full rounded-xl border bg-white px-4 py-3 text-sm text-slate-900 placeholder-slate-400 outline-none transition-all duration-200 focus:bg-white focus:ring-2 dark:bg-white/5 dark:text-white dark:placeholder-slate-500 dark:focus:bg-white/10 ${confirmPassword && confirmPassword !== password
                             ? "border-red-500/50 focus:border-red-500/50 focus:ring-red-500/20"
-                            : "border-white/10 focus:border-purple-500/50 focus:ring-purple-500/20"
+                            : "border-slate-200 focus:border-purple-500/50 focus:ring-purple-500/20 dark:border-white/10"
                             }`}
                     />
                     {confirmPassword && confirmPassword !== password && (
@@ -247,15 +247,15 @@ export default function SignupPage() {
                         id="signup-terms"
                         type="checkbox"
                         required
-                        className="mt-0.5 h-4 w-4 rounded border-white/20 bg-white/5 text-purple-600 focus:ring-purple-500/20"
+                        className="mt-0.5 h-4 w-4 rounded border-slate-300 bg-white text-purple-600 focus:ring-purple-500/20 dark:border-white/20 dark:bg-white/5"
                     />
-                    <label htmlFor="signup-terms" className="text-xs text-slate-400">
+                    <label htmlFor="signup-terms" className="text-xs text-slate-600 dark:text-slate-400">
                         I agree to the{" "}
-                        <span className="cursor-pointer text-purple-400 hover:text-purple-300">
+                        <span className="cursor-pointer text-purple-600 hover:text-purple-500 dark:text-purple-400 dark:hover:text-purple-300">
                             Terms of Service
                         </span>{" "}
                         and{" "}
-                        <span className="cursor-pointer text-purple-400 hover:text-purple-300">
+                        <span className="cursor-pointer text-purple-600 hover:text-purple-500 dark:text-purple-400 dark:hover:text-purple-300">
                             Privacy Policy
                         </span>
                     </label>
@@ -298,16 +298,16 @@ export default function SignupPage() {
 
             {/* Divider */}
             <div className="my-6 flex items-center gap-3">
-                <div className="h-px flex-1 bg-white/10" />
+                <div className="h-px flex-1 bg-slate-200 dark:bg-white/10" />
                 <span className="text-xs text-slate-500">or</span>
-                <div className="h-px flex-1 bg-white/10" />
+                <div className="h-px flex-1 bg-slate-200 dark:bg-white/10" />
             </div>
 
             {/* Google Sign Up */}
             <button
                 type="button"
                 onClick={() => signIn("google")}
-                className="flex w-full items-center justify-center gap-3 rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm font-medium text-slate-300 transition-all duration-200 hover:border-white/20 hover:bg-white/10"
+                className="flex w-full items-center justify-center gap-3 rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm font-medium text-slate-700 transition-all duration-200 hover:border-slate-300 hover:bg-slate-50 dark:border-white/10 dark:bg-white/5 dark:text-slate-300 dark:hover:border-white/20 dark:hover:bg-white/10"
             >
                 <svg className="h-5 w-5" viewBox="0 0 24 24">
                     <path
@@ -331,11 +331,11 @@ export default function SignupPage() {
             </button>
 
             {/* Footer */}
-            <p className="mt-6 text-center text-sm text-slate-400">
+            <p className="mt-6 text-center text-sm text-slate-600 dark:text-slate-400">
                 Already have an account?{" "}
                 <Link
                     href="/login"
-                    className="font-medium text-purple-400 transition-colors hover:text-purple-300"
+                    className="font-medium text-purple-600 transition-colors hover:text-purple-500 dark:text-purple-400 dark:hover:text-purple-300"
                 >
                     Sign in
                 </Link>

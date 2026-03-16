@@ -2,8 +2,8 @@ import React from "react";
 
 export default function AboutUs() {
     return (
-        <div className="min-h-screen bg-white dark:bg-black text-gray-900 dark:text-gray-100 font-sans">
-            <div className="max-w-4xl mx-auto px-6 py-24">
+        <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-gray-900 dark:text-gray-100 font-sans">
+            <div className="max-w-6xl mx-auto px-6 py-24">
                 <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight mb-8 bg-gradient-to-r from-blue-600 to-violet-600 bg-clip-text text-transparent">
                     About Us
                 </h1>

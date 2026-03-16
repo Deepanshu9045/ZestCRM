@@ -46,8 +46,8 @@ export default function LoginPage() {
     return (
         <>
             <div className="mb-6">
-                <h2 className="text-2xl font-semibold text-white">Welcome back</h2>
-                <p className="mt-1 text-sm text-slate-400">
+                <h2 className="text-2xl font-semibold text-slate-900 dark:text-white">Welcome back</h2>
+                <p className="mt-1 text-sm text-slate-600 dark:text-slate-400">
                     Sign in to your account to continue
                 </p>
             </div>
@@ -63,7 +63,7 @@ export default function LoginPage() {
                 <div>
                     <label
                         htmlFor="login-email"
-                        className="mb-1.5 block text-sm font-medium text-slate-300"
+                        className="mb-1.5 block text-sm font-medium text-slate-700 dark:text-slate-300"
                     >
                         Email Address
                     </label>
@@ -74,7 +74,7 @@ export default function LoginPage() {
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         placeholder="you@company.com"
-                        className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder-slate-500 outline-none transition-all duration-200 focus:border-purple-500/50 focus:bg-white/10 focus:ring-2 focus:ring-purple-500/20"
+                        className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 placeholder-slate-400 outline-none transition-all duration-200 focus:border-purple-500/50 focus:bg-white focus:ring-2 focus:ring-purple-500/20 dark:border-white/10 dark:bg-white/5 dark:text-white dark:placeholder-slate-500 dark:focus:bg-white/10"
                     />
                 </div>
 
@@ -83,13 +83,13 @@ export default function LoginPage() {
                     <div className="mb-1.5 flex items-center justify-between">
                         <label
                             htmlFor="login-password"
-                            className="text-sm font-medium text-slate-300"
+                            className="text-sm font-medium text-slate-700 dark:text-slate-300"
                         >
                             Password
                         </label>
                         <button
                             type="button"
-                            className="text-xs text-purple-400 transition-colors hover:text-purple-300"
+                            className="text-xs text-purple-600 transition-colors hover:text-purple-500 dark:text-purple-400 dark:hover:text-purple-300"
                         >
                             Forgot password?
                         </button>
@@ -102,12 +102,12 @@ export default function LoginPage() {
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                             placeholder="••••••••"
-                            className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 pr-12 text-sm text-white placeholder-slate-500 outline-none transition-all duration-200 focus:border-purple-500/50 focus:bg-white/10 focus:ring-2 focus:ring-purple-500/20"
+                            className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 pr-12 text-sm text-slate-900 placeholder-slate-400 outline-none transition-all duration-200 focus:border-purple-500/50 focus:bg-white focus:ring-2 focus:ring-purple-500/20 dark:border-white/10 dark:bg-white/5 dark:text-white dark:placeholder-slate-500 dark:focus:bg-white/10"
                         />
                         <button
                             type="button"
                             onClick={() => setShowPassword(!showPassword)}
-                            className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 transition-colors hover:text-slate-300"
+                            className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 transition-colors hover:text-slate-700 dark:hover:text-slate-300"
                         >
                             {showPassword ? (
                                 <svg
@@ -187,16 +187,16 @@ export default function LoginPage() {
 
             {/* Divider */}
             <div className="my-6 flex items-center gap-3">
-                <div className="h-px flex-1 bg-white/10" />
+                <div className="h-px flex-1 bg-slate-200 dark:bg-white/10" />
                 <span className="text-xs text-slate-500">or</span>
-                <div className="h-px flex-1 bg-white/10" />
+                <div className="h-px flex-1 bg-slate-200 dark:bg-white/10" />
             </div>
 
             {/* Google Sign In (placeholder) */}
             <button
                 type="button"
                 onClick={() => signIn("google")}
-                className="flex w-full items-center justify-center gap-3 rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm font-medium text-slate-300 transition-all duration-200 hover:border-white/20 hover:bg-white/10"
+                className="flex w-full items-center justify-center gap-3 rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm font-medium text-slate-700 transition-all duration-200 hover:border-slate-300 hover:bg-slate-50 dark:border-white/10 dark:bg-white/5 dark:text-slate-300 dark:hover:border-white/20 dark:hover:bg-white/10"
             >
                 <svg className="h-5 w-5" viewBox="0 0 24 24">
                     <path
@@ -220,11 +220,11 @@ export default function LoginPage() {
             </button>
 
             {/* Footer */}
-            <p className="mt-6 text-center text-sm text-slate-400">
+            <p className="mt-6 text-center text-sm text-slate-600 dark:text-slate-400">
                 Don&apos;t have an account?{" "}
                 <Link
                     href="/signup"
-                    className="font-medium text-purple-400 transition-colors hover:text-purple-300"
+                    className="font-medium text-purple-600 transition-colors hover:text-purple-500 dark:text-purple-400 dark:hover:text-purple-300"
                 >
                     Create one
                 </Link>
