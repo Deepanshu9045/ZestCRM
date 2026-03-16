@@ -61,7 +61,7 @@ export default function ContactUs() {
                 </form>
 
                 <div className="mt-16 pt-8 border-t border-gray-100 dark:border-white/10 text-center">
-                    <p className="text-gray-500">Or email us directly at <a href="mailto:support@zestinvoice.com" className="text-blue-600 hover:underline">support@zestinvoice.com</a></p>
+                    <p className="text-gray-500">Or email us directly at <a href="mailto:support@zestcrm.com" className="text-blue-600 hover:underline">support@zestcrm.com</a></p>
                 </div>
             </div>
         </div>

@@ -53,7 +53,7 @@ export default function DashboardPage() {
             <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
                 <div>
                     <h2 className="text-2xl font-bold tracking-tight text-slate-900 dark:text-white">
-                        Welcome back, John
+                        Welcome
                     </h2>
                     <p className="text-slate-500 dark:text-slate-400">
                         Here's what's happening with your business today.
