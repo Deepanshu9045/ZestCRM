@@ -14,15 +14,15 @@ const footerLinks = [
     {
         title: "Company",
         links: [
-            { name: "About Us", href: "/about-us" },
-            { name: "Contact Us", href: "/contact-us" },
+            { name: "About Us", href: "#about-us" },
+            { name: "Contact Us", href: "#contact-us" },
         ],
     },
     {
         title: "Legal",
         links: [
-            { name: "Privacy Policy", href: "/privacy-policy" },
-            { name: "Cost And Refund", href: "/cost-and-refund" },
+            { name: "Privacy Policy", href: "#privacy-policy" },
+            { name: "Cost And Refund", href: "#cost-and-refund" },
         ],
     },
 ];
@@ -45,7 +45,7 @@ export default function Footer() {
                         <div className="flex items-center gap-2 mb-4">
                             <div className="relative w-10 h-10 rounded-lg overflow-hidden bg-black shadow-md">
                                 <Image
-                                    src="/pulsezestLogo.png"
+                                    src="/logo.png"
                                     alt="Zest CRM Logo"
                                     fill
                                     className="object-contain p-1"
