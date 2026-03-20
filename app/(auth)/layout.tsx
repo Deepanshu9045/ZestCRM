@@ -1,7 +1,9 @@
+import { ReactNode } from "react";
+
 export default function AuthLayout({
     children,
 }: {
-    children: React.ReactNode;
+    children: ReactNode;
 }) {
     return (
         <div className="flex min-h-screen items-center justify-center bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100">
@@ -12,7 +14,7 @@ export default function AuthLayout({
                 <div className="absolute left-1/2 top-1/2 h-60 w-60 -translate-x-1/2 -translate-y-1/2 rounded-full bg-violet-400/10 blur-[100px]" />
             </div>
 
-            <div className="relative z-10 w-full max-w-md px-4">
+            <div className="relative z-10 w-full max-w-md px-4 md:max-w-2xl">
                 {/* Logo / Brand */}
                 <div className="mb-8 text-center">
                     <h1 className="text-4xl font-bold tracking-tight text-slate-900 dark:text-white">

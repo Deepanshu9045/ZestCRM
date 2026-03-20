@@ -93,7 +93,7 @@ export default function SignupPage() {
                 </div>
             )}
 
-            <form onSubmit={handleSignup} className="space-y-4">
+            <form onSubmit={handleSignup} className="grid gap-4 md:grid-cols-2">
                 {/* Full Name */}
                 <div>
                     <label
@@ -242,7 +242,7 @@ export default function SignupPage() {
                 </div>
 
                 {/* Terms */}
-                <div className="flex items-start gap-2 pt-1">
+                <div className="md:col-span-2 flex items-start gap-2 pt-1">
                     <input
                         id="signup-terms"
                         type="checkbox"
@@ -265,7 +265,7 @@ export default function SignupPage() {
                 <button
                     type="submit"
                     disabled={loading}
-                    className="relative w-full overflow-hidden rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 px-4 py-3 text-sm font-semibold text-white shadow-lg shadow-purple-500/25 transition-all duration-200 hover:from-purple-500 hover:to-indigo-500 hover:shadow-purple-500/40 disabled:cursor-not-allowed disabled:opacity-60"
+                    className="relative w-full overflow-hidden rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 px-4 py-3 text-sm font-semibold text-white shadow-lg shadow-purple-500/25 transition-all duration-200 hover:from-purple-500 hover:to-indigo-500 hover:shadow-purple-500/40 disabled:cursor-not-allowed disabled:opacity-60 md:col-span-2"
                 >
                     {loading ? (
                         <span className="flex items-center justify-center gap-2">

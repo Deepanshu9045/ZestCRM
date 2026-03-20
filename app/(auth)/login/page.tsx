@@ -44,7 +44,7 @@ export default function LoginPage() {
     };
 
     return (
-        <>
+        <div className="mx-auto w-full max-w-md">
             <div className="mb-6">
                 <h2 className="text-2xl font-semibold text-slate-900 dark:text-white">Welcome back</h2>
                 <p className="mt-1 text-sm text-slate-600 dark:text-slate-400">
@@ -229,6 +229,6 @@ export default function LoginPage() {
                     Create one
                 </Link>
             </p>
-        </>
+        </div>
     );
 }

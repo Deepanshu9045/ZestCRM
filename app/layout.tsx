@@ -15,6 +15,9 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Zest CRM",
   description: "Zest CRM is a modern, intuitive, and powerful customer relationship management (CRM) system designed to help businesses manage their customer interactions and relationships effectively. With Zest CRM, you can easily track leads, manage contacts, and streamline your sales processes, all in one place.",
+  icons: {
+    icon: "/logo.png",
+  },
 };
 
 export default function RootLayout({

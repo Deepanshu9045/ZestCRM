@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import { auth } from "@/lib/firebase";
 import { signOut } from "firebase/auth";
@@ -64,8 +65,15 @@ export function Sidebar({ isMobileOpen, setMobileOpen }: SidebarProps) {
                 {/* Logo area */}
                 <div className="flex h-16 shrink-0 items-center justify-between px-6 border-b border-slate-100 dark:border-slate-800">
                     <Link href="/dashboard" className="flex items-center gap-2">
-                        <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-indigo-600">
-                            <span className="text-lg font-bold text-white">Z</span>
+                        <div className="relative w-10 h-10 md:w-12 md:h-12 rounded-full overflow-hidden shadow-lg shadow-blue-500/30 group-hover:shadow-blue-500/50 transition-all duration-300">
+                            <Image
+                                src="/logo.png"
+                                alt="ZestCRM Logo"
+                                fill
+                                sizes="(max-width: 768px) 40px, 48px"
+                                className="object-cover"
+                                priority
+                            />
                         </div>
                         <span className="text-xl font-bold tracking-tight text-slate-900 dark:text-white">
                             Zest<span className="text-indigo-600 dark:text-indigo-400">CRM</span>
