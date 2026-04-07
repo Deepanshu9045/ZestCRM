@@ -34,6 +34,14 @@ Install dependencies:
 npm install
 ```
 
+Create a local environment file for the EmailJS contact form:
+
+```bash
+cp .env.example .env.local
+```
+
+Then add your EmailJS service ID, template ID, and public key to `.env.local`.
+
 Start the development server:
 
 ```bash
