@@ -4,7 +4,6 @@ import { ZestBadge } from "@/components/ui/ZestBadge";
 import { ZestButton } from "@/components/ui/ZestButton";
 import { ZestCard, ZestCardContent, ZestCardHeader, ZestCardTitle } from "@/components/ui/ZestCard";
 import { ChevronDown, ChevronUp, ChevronsUpDown, Eye, Edit, Trash2, Download, Search, X } from "lucide-react";
-// Replaced date-fns with native formatting
 
 export type LeadStatus =
   | "New"
@@ -30,7 +29,7 @@ export interface Lead {
   source: LeadSource;
   status: LeadStatus;
   assignedTo: string;
-  createdAt: string; // ISO
+  createdAt: string;
 }
 
 const statusVariant: Record<LeadStatus, Parameters<typeof ZestBadge>[0]["variant"]> = {
@@ -165,7 +164,6 @@ export function LeadsTable({ data }: LeadsTableProps) {
       .filter(([, v]) => v)
       .map(([id]) => id);
     if (!ids.length) return;
-    // In real app call API; here just alert
     alert(`Bulk delete: ${ids.length} leads`);
     setSelected({});
   };
@@ -175,9 +173,11 @@ export function LeadsTable({ data }: LeadsTableProps) {
   };
 
   return (
-    <ZestCard className="p-0">
-      <ZestCardHeader className="p-6">
-        <ZestCardTitle>Leads</ZestCardTitle>
+    <ZestCard className="overflow-hidden border border-slate-800 bg-slate-950/95 p-0 shadow-[0_18px_45px_-28px_rgba(2,6,23,0.85)] backdrop-blur">
+      <ZestCardHeader className="border-b border-slate-800 bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 p-6">
+        <ZestCardTitle>
+          <span className="text-slate-100">Leads</span>
+        </ZestCardTitle>
         <div className="flex items-center gap-2">
           {someSelected && (
             <ZestButton variant="outline" onClick={handleBulkDelete} className="gap-2">
@@ -190,141 +190,158 @@ export function LeadsTable({ data }: LeadsTableProps) {
         </div>
       </ZestCardHeader>
       <ZestCardContent className="p-6 pt-0">
-        {/* Filters */}
-        <div className="mb-4 grid grid-cols-1 gap-3 md:grid-cols-12">
-          <div className="md:col-span-4 relative">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
-            <input
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              placeholder="Search by name, company, email, phone"
-              className="w-full rounded-lg border border-slate-300 bg-white py-2 pl-9 pr-3 text-sm outline-none ring-indigo-500 focus:ring-2"
-            />
-            {query && (
-              <button className="absolute right-2 top-1/2 -translate-y-1/2 text-slate-400" onClick={() => setQuery("")}>
-                <X className="h-4 w-4" />
-              </button>
-            )}
+        <div className="mb-6 mt-6 rounded-2xl border border-slate-800 bg-gradient-to-br from-slate-900 via-slate-950 to-slate-900 p-4 shadow-sm">
+          <div className="mb-3">
+            <p className="text-sm font-semibold text-slate-100">Filter Leads</p>
+            <p className="text-xs text-slate-400">Narrow results by status, source, date, or keyword.</p>
           </div>
-          <div className="md:col-span-2">
-            <select value={status} onChange={(e) => setStatus(e.target.value as any)} className="w-full rounded-lg border border-slate-300 bg-white py-2 px-3 text-sm outline-none ring-indigo-500 focus:ring-2">
-              <option value="">Status</option>
-              {Object.keys(statusOrder).map((s) => (
-                <option key={s} value={s}>
-                  {s}
-                </option>
-              ))}
-            </select>
-          </div>
-          <div className="md:col-span-2">
-            <select value={source} onChange={(e) => setSource(e.target.value as any)} className="w-full rounded-lg border border-slate-300 bg-white py-2 px-3 text-sm outline-none ring-indigo-500 focus:ring-2">
-              <option value="">Source</option>
-              {(["Website", "Facebook", "Referral", "Email Campaign", "Cold Call"] as LeadSource[]).map((s) => (
-                <option key={s} value={s}>
-                  {s}
-                </option>
-              ))}
-            </select>
-          </div>
-          <div className="md:col-span-2">
-            <input type="date" value={date} onChange={(e) => setDate(e.target.value)} className="w-full rounded-lg border border-slate-300 bg-white py-2 px-3 text-sm outline-none ring-indigo-500 focus:ring-2" />
-          </div>
-          <div className="md:col-span-2 flex gap-2">
-            <ZestButton variant="outline" onClick={resetFilters}>Reset</ZestButton>
+          <div className="grid grid-cols-1 gap-3 md:grid-cols-12">
+            <div className="relative md:col-span-4">
+              <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500" />
+              <input
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                placeholder="Search by name, company, email, phone"
+                className="w-full rounded-xl border border-slate-700 bg-slate-900 py-2.5 pl-9 pr-9 text-sm text-slate-200 shadow-sm outline-none transition placeholder:text-slate-500 focus:border-sky-500 focus:bg-slate-900 focus:ring-4 focus:ring-sky-950"
+              />
+              {query && (
+                <button className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 transition hover:text-slate-300" onClick={() => setQuery("")}>
+                  <X className="h-4 w-4" />
+                </button>
+              )}
+            </div>
+            <div className="md:col-span-2">
+              <select value={status} onChange={(e) => setStatus(e.target.value as any)} className="w-full rounded-xl border border-slate-700 bg-slate-900 px-3 py-2.5 text-sm text-slate-200 shadow-sm outline-none transition focus:border-sky-500 focus:bg-slate-900 focus:ring-4 focus:ring-sky-950">
+                <option value="">Status</option>
+                {Object.keys(statusOrder).map((s) => (
+                  <option key={s} value={s}>
+                    {s}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="md:col-span-2">
+              <select value={source} onChange={(e) => setSource(e.target.value as any)} className="w-full rounded-xl border border-slate-700 bg-slate-900 px-3 py-2.5 text-sm text-slate-200 shadow-sm outline-none transition focus:border-sky-500 focus:bg-slate-900 focus:ring-4 focus:ring-sky-950">
+                <option value="">Source</option>
+                {(["Website", "Facebook", "Referral", "Email Campaign", "Cold Call"] as LeadSource[]).map((s) => (
+                  <option key={s} value={s}>
+                    {s}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="md:col-span-2">
+              <input type="date" value={date} onChange={(e) => setDate(e.target.value)} className="w-full rounded-xl border border-slate-700 bg-slate-900 px-3 py-2.5 text-sm text-slate-200 shadow-sm outline-none transition focus:border-sky-500 focus:bg-slate-900 focus:ring-4 focus:ring-sky-950" />
+            </div>
+            <div className="md:col-span-2 flex gap-2">
+              <ZestButton variant="outline" onClick={resetFilters} className="w-full border-slate-700 bg-slate-900 text-slate-200 hover:bg-slate-800">
+                Reset
+              </ZestButton>
+            </div>
           </div>
         </div>
 
-        {/* Table */}
-        <div className="overflow-x-auto">
-          <table className="min-w-full divide-y divide-slate-200">
-            <thead className="bg-slate-50">
-              <tr>
-                <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-slate-500">
-                  <input
-                    type="checkbox"
-                    checked={allSelectedOnPage}
-                    onChange={(e) => {
-                      const checked = e.target.checked;
-                      const upd: Record<string, boolean> = { ...selected };
-                      pageData.forEach((r) => (upd[r.id] = checked));
-                      setSelected(upd);
-                    }}
-                  />
-                </th>
-                {(
-                  [
-                    ["name", "Lead Name"],
-                    ["company", "Company"],
-                    ["email", "Email"],
-                    ["phone", "Phone"],
-                    ["source", "Source"],
-                    ["status", "Status"],
-                    ["assignedTo", "Assigned To"],
-                    ["createdAt", "Created Date"],
-                  ] as [keyof Lead, string][]
-                ).map(([key, label]) => (
-                  <th key={key as string} className="cursor-pointer select-none px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-slate-500" onClick={() => toggleSort(key)}>
-                    <div className="flex items-center gap-1">
-                      {label}
-                      {sortBy === key ? (
-                        sortDir === "asc" ? <ChevronUp className="h-3 w-3" /> : <ChevronDown className="h-3 w-3" />
-                      ) : (
-                        <ChevronsUpDown className="h-3 w-3 text-slate-300" />
-                      )}
-                    </div>
-                  </th>
-                ))}
-                <th className="px-4 py-3 text-right text-xs font-medium uppercase tracking-wider text-slate-500">Actions</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-slate-200 bg-white">
-              {pageData.map((r) => (
-                <tr key={r.id} className="hover:bg-slate-50">
-                  <td className="px-4 py-3">
+        <div className="overflow-hidden rounded-2xl border border-slate-800 bg-slate-950 shadow-sm">
+          <div className="overflow-x-auto">
+            <table className="min-w-full divide-y divide-slate-800">
+              <thead className="bg-slate-900/90">
+                <tr>
+                  <th className="px-4 py-3.5 text-left text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">
                     <input
                       type="checkbox"
-                      checked={!!selected[r.id]}
-                      onChange={(e) => setSelected({ ...selected, [r.id]: e.target.checked })}
+                      checked={allSelectedOnPage}
+                      onChange={(e) => {
+                        const checked = e.target.checked;
+                        const upd: Record<string, boolean> = { ...selected };
+                        pageData.forEach((r) => (upd[r.id] = checked));
+                        setSelected(upd);
+                      }}
                     />
-                  </td>
-                  <td className="px-4 py-3 text-sm font-medium text-slate-900">{r.name}</td>
-                  <td className="px-4 py-3 text-sm text-slate-700">{r.company}</td>
-                  <td className="px-4 py-3 text-sm text-slate-700">{r.email}</td>
-                  <td className="px-4 py-3 text-sm text-slate-700">{r.phone}</td>
-                  <td className="px-4 py-3 text-sm text-slate-700">{r.source}</td>
-                  <td className="px-4 py-3 text-sm text-slate-700">
-                    <ZestBadge variant={statusVariant[r.status]}>{r.status}</ZestBadge>
-                  </td>
-                  <td className="px-4 py-3 text-sm text-slate-700">{r.assignedTo}</td>
-                  <td className="px-4 py-3 text-sm text-slate-700">{new Date(r.createdAt).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}</td>
-                  <td className="px-4 py-3 text-right text-sm">
-                    <div className="flex items-center justify-end gap-2">
-                      <ZestButton variant="ghost" className="h-8 px-2" aria-label="View"><Eye className="h-4 w-4" /></ZestButton>
-                      <ZestButton variant="ghost" className="h-8 px-2" aria-label="Edit"><Edit className="h-4 w-4" /></ZestButton>
-                      <ZestButton variant="ghost" className="h-8 px-2" aria-label="Delete"><Trash2 className="h-4 w-4" /></ZestButton>
-                    </div>
-                  </td>
+                  </th>
+                  {(
+                    [
+                      ["name", "Lead Name"],
+                      ["company", "Company"],
+                      ["email", "Email"],
+                      ["phone", "Phone"],
+                      ["source", "Source"],
+                      ["status", "Status"],
+                      ["assignedTo", "Assigned To"],
+                      ["createdAt", "Created Date"],
+                    ] as [keyof Lead, string][]
+                  ).map(([key, label]) => (
+                    <th
+                      key={key as string}
+                      className="cursor-pointer select-none px-4 py-3.5 text-left text-xs font-semibold uppercase tracking-[0.18em] text-slate-400 transition hover:bg-slate-800/80"
+                      onClick={() => toggleSort(key)}
+                    >
+                      <div className="flex items-center gap-1">
+                        {label}
+                        {sortBy === key ? (
+                          sortDir === "asc" ? <ChevronUp className="h-3 w-3" /> : <ChevronDown className="h-3 w-3" />
+                        ) : (
+                          <ChevronsUpDown className="h-3 w-3 text-slate-600" />
+                        )}
+                      </div>
+                    </th>
+                  ))}
+                  <th className="px-4 py-3.5 text-right text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">Actions</th>
                 </tr>
-              ))}
-              {pageData.length === 0 && (
-                <tr>
-                  <td colSpan={10} className="px-4 py-10 text-center text-sm text-slate-500">No leads found</td>
-                </tr>
-              )}
-            </tbody>
-          </table>
+              </thead>
+              <tbody className="divide-y divide-slate-800 bg-slate-950">
+                {pageData.map((r) => (
+                  <tr key={r.id} className="transition-colors hover:bg-slate-900">
+                    <td className="px-4 py-3">
+                      <input
+                        type="checkbox"
+                        checked={!!selected[r.id]}
+                        onChange={(e) => setSelected({ ...selected, [r.id]: e.target.checked })}
+                      />
+                    </td>
+                    <td className="px-4 py-3 text-sm font-medium text-slate-100">{r.name}</td>
+                    <td className="px-4 py-3 text-sm text-slate-300">{r.company}</td>
+                    <td className="px-4 py-3 text-sm text-slate-300">{r.email}</td>
+                    <td className="px-4 py-3 text-sm text-slate-300">{r.phone}</td>
+                    <td className="px-4 py-3 text-sm text-slate-300">{r.source}</td>
+                    <td className="px-4 py-3 text-sm text-slate-300">
+                      <ZestBadge variant={statusVariant[r.status]}>{r.status}</ZestBadge>
+                    </td>
+                    <td className="px-4 py-3 text-sm text-slate-300">{r.assignedTo}</td>
+                    <td className="px-4 py-3 text-sm text-slate-300">
+                      {new Date(r.createdAt).toLocaleDateString(undefined, {
+                        month: "short",
+                        day: "numeric",
+                        year: "numeric",
+                      })}
+                    </td>
+                    <td className="px-4 py-3 text-right text-sm text-slate-300">
+                      <div className="flex items-center justify-end gap-2">
+                        <ZestButton variant="ghost" className="h-8 px-2" aria-label="View"><Eye className="h-4 w-4" /></ZestButton>
+                        <ZestButton variant="ghost" className="h-8 px-2" aria-label="Edit"><Edit className="h-4 w-4" /></ZestButton>
+                        <ZestButton variant="ghost" className="h-8 px-2" aria-label="Delete"><Trash2 className="h-4 w-4" /></ZestButton>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+                {pageData.length === 0 && (
+                  <tr>
+                    <td colSpan={10} className="px-4 py-12 text-center text-sm text-slate-400">No leads found</td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
         </div>
 
-        {/* Pagination */}
-        <div className="mt-4 flex items-center justify-between text-sm text-slate-600">
+        <div className="mt-5 flex flex-col gap-3 rounded-2xl border border-slate-800 bg-slate-900/80 px-4 py-3 text-sm text-slate-300 md:flex-row md:items-center md:justify-between">
           <div>
             Page {page} of {totalPages} • {sorted.length} results
           </div>
           <div className="flex items-center gap-2">
-            <ZestButton variant="outline" disabled={page === 1} onClick={() => setPage(1)}>First</ZestButton>
-            <ZestButton variant="outline" disabled={page === 1} onClick={() => setPage((p) => Math.max(1, p - 1))}>Prev</ZestButton>
-            <ZestButton variant="outline" disabled={page === totalPages} onClick={() => setPage((p) => Math.min(totalPages, p + 1))}>Next</ZestButton>
-            <ZestButton variant="outline" disabled={page === totalPages} onClick={() => setPage(totalPages)}>Last</ZestButton>
+            <ZestButton variant="outline" className="border-slate-700 bg-slate-950 text-slate-200 hover:bg-slate-800" disabled={page === 1} onClick={() => setPage(1)}>First</ZestButton>
+            <ZestButton variant="outline" className="border-slate-700 bg-slate-950 text-slate-200 hover:bg-slate-800" disabled={page === 1} onClick={() => setPage((p) => Math.max(1, p - 1))}>Prev</ZestButton>
+            <ZestButton variant="outline" className="border-slate-700 bg-slate-950 text-slate-200 hover:bg-slate-800" disabled={page === totalPages} onClick={() => setPage((p) => Math.min(totalPages, p + 1))}>Next</ZestButton>
+            <ZestButton variant="outline" className="border-slate-700 bg-slate-950 text-slate-200 hover:bg-slate-800" disabled={page === totalPages} onClick={() => setPage(totalPages)}>Last</ZestButton>
           </div>
         </div>
       </ZestCardContent>
