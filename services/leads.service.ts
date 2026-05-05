@@ -1,4 +1,4 @@
-import { addDoc, collection, deleteDoc, doc, getDocs, limit, orderBy, query, serverTimestamp } from "firebase/firestore";
+import { addDoc, collection, deleteDoc, doc, getDocs, getCountFromServer, limit, orderBy, query, serverTimestamp, where } from "firebase/firestore";
 import { db } from "@/lib/firebase-client";
 
 export type LeadStatusMachine = "new" | "contacted" | "qualified" | "proposal_sent" | "won" | "lost";
@@ -48,16 +48,32 @@ export async function listLeads(limitCount = 100) {
 }
 
 export async function addLead(payload: Omit<LeadDoc, "createdAt">) {
-  const ref = await addDoc(collection(db, "leads"), {
-    ...payload,
-    createdAt: serverTimestamp(),
-  });
+  const doc = Object.fromEntries(
+    Object.entries({ ...payload, createdAt: serverTimestamp() }).filter(([, v]) => v !== undefined)
+  );
+  const ref = await addDoc(collection(db, "leads"), doc);
   return ref.id;
 }
 
 export async function bulkDeleteLeads(ids: string[]) {
-  // Simple sequential deletes; can be optimized with writeBatch
   await Promise.all(ids.map((id) => deleteDoc(doc(db, "leads", id))));
+}
+
+export async function fetchLeadsStats() {
+  const [total, newSnap, qualifiedSnap, convertedSnap, lostSnap] = await Promise.all([
+    getCountFromServer(collection(db, "leads")),
+    getCountFromServer(query(collection(db, "leads"), where("status", "==", "new"))),
+    getCountFromServer(query(collection(db, "leads"), where("status", "==", "qualified"))),
+    getCountFromServer(query(collection(db, "leads"), where("status", "==", "won"))),
+    getCountFromServer(query(collection(db, "leads"), where("status", "==", "lost"))),
+  ]);
+  return {
+    total: total.data().count,
+    new: newSnap.data().count,
+    qualified: qualifiedSnap.data().count,
+    converted: convertedSnap.data().count,
+    lost: lostSnap.data().count,
+  };
 }
 
 export function uiToStatusMachine(ui: string): LeadStatusMachine {

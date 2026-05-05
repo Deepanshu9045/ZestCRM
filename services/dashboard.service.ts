@@ -18,6 +18,28 @@ export const dashboardService = {
             const leadsSnap = await getCountFromServer(collection(db, "leads"));
             const totalLeads = leadsSnap.data().count;
 
+            // Month-over-month growth for Total Leads
+            const now = new Date();
+            const startOfThisMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+            const startOfLastMonth = new Date(now.getFullYear(), now.getMonth() - 1, 1);
+
+            const [thisMonthSnap, lastMonthSnap] = await Promise.all([
+                getCountFromServer(query(
+                    collection(db, "leads"),
+                    where("createdAt", ">=", Timestamp.fromDate(startOfThisMonth))
+                )),
+                getCountFromServer(query(
+                    collection(db, "leads"),
+                    where("createdAt", ">=", Timestamp.fromDate(startOfLastMonth)),
+                    where("createdAt", "<", Timestamp.fromDate(startOfThisMonth))
+                )),
+            ]);
+            const thisMonthCount = thisMonthSnap.data().count;
+            const lastMonthCount = lastMonthSnap.data().count;
+            const totalLeadsGrowth = lastMonthCount > 0
+                ? Math.round(((thisMonthCount - lastMonthCount) / lastMonthCount) * 100)
+                : thisMonthCount > 0 ? 100 : 0;
+
             // 2. Converted Customers (Leads with status = 'won' or from customers collection)
             const customersSnap = await getCountFromServer(collection(db, "customers"));
             let convertedCustomers = customersSnap.data().count;
@@ -53,6 +75,7 @@ export const dashboardService = {
 
             return {
                 totalLeads,
+                totalLeadsGrowth,
                 convertedCustomers,
                 activeDeals,
                 totalRevenue,
@@ -61,7 +84,7 @@ export const dashboardService = {
         } catch (error) {
             console.error("Error fetching dashboard stats:", error);
             // Return default zeroes on error or empty DB
-            return { totalLeads: 0, convertedCustomers: 0, activeDeals: 0, totalRevenue: 0, conversionRate: 0 };
+            return { totalLeads: 0, totalLeadsGrowth: 0, convertedCustomers: 0, activeDeals: 0, totalRevenue: 0, conversionRate: 0 };
         }
     },
 

@@ -71,8 +71,8 @@ export default function DashboardPage() {
                     value={stats ? formatNumber(stats.totalLeads) : "0"}
                     description="from last month"
                     icon={<Users className="h-6 w-6" />}
-                    growth="+12%"
-                    trend="up"
+                    growth={stats ? `${stats.totalLeadsGrowth >= 0 ? "+" : ""}${stats.totalLeadsGrowth}%` : undefined}
+                    trend={stats ? (stats.totalLeadsGrowth >= 0 ? "up" : "down") : undefined}
                     isLoading={loading}
                 />
                 <ZestStatsCard

@@ -92,9 +92,11 @@ function download(filename: string, content: string, mime = "text/csv;charset=ut
 
 export interface LeadsTableProps {
   data: Lead[];
+  isLoading?: boolean;
+  onBulkDelete?: (ids: string[]) => Promise<void>;
 }
 
-export function LeadsTable({ data }: LeadsTableProps) {
+export function LeadsTable({ data, isLoading, onBulkDelete }: LeadsTableProps) {
   const [query, setQuery] = useState("");
   const [status, setStatus] = useState<LeadStatus | "">("");
   const [source, setSource] = useState<LeadSource | "">("");
@@ -159,12 +161,12 @@ export function LeadsTable({ data }: LeadsTableProps) {
     }
   };
 
-  const handleBulkDelete = () => {
+  const handleBulkDelete = async () => {
     const ids = Object.entries(selected)
       .filter(([, v]) => v)
       .map(([id]) => id);
     if (!ids.length) return;
-    alert(`Bulk delete: ${ids.length} leads`);
+    if (onBulkDelete) await onBulkDelete(ids);
     setSelected({});
   };
 
@@ -323,7 +325,12 @@ export function LeadsTable({ data }: LeadsTableProps) {
                     </td>
                   </tr>
                 ))}
-                {pageData.length === 0 && (
+                {isLoading && (
+                  <tr>
+                    <td colSpan={10} className="px-4 py-12 text-center text-sm text-slate-400">Loading leads…</td>
+                  </tr>
+                )}
+                {!isLoading && pageData.length === 0 && (
                   <tr>
                     <td colSpan={10} className="px-4 py-12 text-center text-sm text-slate-400">No leads found</td>
                   </tr>

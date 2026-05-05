@@ -6,6 +6,7 @@ export type LeadSource = "Website" | "Referral" | "Cold Call" | "Social Media" |
 
 export interface DashboardStats {
     totalLeads: number;
+    totalLeadsGrowth: number;
     convertedCustomers: number;
     activeDeals: number;
     totalRevenue: number;

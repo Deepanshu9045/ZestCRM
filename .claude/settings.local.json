@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(find e:\\\\\\\\ZestCRM\\\\\\\\app -type f -name \"*lead*\")",
+      "Bash(find e:\\\\\\\\ZestCRM\\\\\\\\components -type f -name \"*lead*\")"
+    ]
+  }
+}
