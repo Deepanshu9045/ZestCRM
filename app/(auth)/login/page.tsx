@@ -193,7 +193,7 @@ export default function LoginPage() {
             </div>
 
             {/* Google Sign In (placeholder) */}
-            <button
+            {/* <button
                 type="button"
                 onClick={() => signIn("google")}
                 className="flex w-full items-center justify-center gap-3 rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm font-medium text-slate-700 transition-all duration-200 hover:border-slate-300 hover:bg-slate-50 dark:border-white/10 dark:bg-white/5 dark:text-slate-300 dark:hover:border-white/20 dark:hover:bg-white/10"
@@ -217,7 +217,7 @@ export default function LoginPage() {
                     />
                 </svg>
                 Continue with Google
-            </button>
+            </button> */}
 
             {/* Footer */}
             <p className="mt-6 text-center text-sm text-slate-600 dark:text-slate-400">
